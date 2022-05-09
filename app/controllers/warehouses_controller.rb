@@ -5,6 +5,7 @@ class WarehousesController < ApplicationController
   end
 
   def new
+    @warehouse = Warehouse.new
   end
 
   def create
@@ -13,10 +14,20 @@ class WarehousesController < ApplicationController
     # 2 - Criar um novo galpão no banco de dados
     warehouse_params = params.require(:warehouse).permit(:name, :description,
                                                         :code, :address, :city,
-                                                        :state, :postal_code, :area)
-    w = Warehouse.new(warehouse_params)
-    w.save()
-    # 3 - Redirecionar para a tela inicial
-    redirect_to root_path
+                                                        :state, :postal_code, :area)  # Strong Parameters
+    @warehouse = Warehouse.new(warehouse_params)
+
+    if @warehouse.save()
+      # 3 - Utilizar flash messages
+      flash[:notice] = 'Galpão cadastrado com sucesso.'
+      # 4 - Redirecionar para a tela inicial
+      redirect_to root_path   # redirect_to dispara uma NOVA requisição do tipo GET
+    else
+      # 3 - Utilizar o método .now das flash messages (que só aparece na requisição atual e se perde na próxima)
+      flash.now[:notice] = 'Galpão não cadastrado.'
+      # 4 - Redirecionar para a mesma tela do formulário
+      render :new   # render NÃO dispara uma nova requisição; ela continua na requisição atual (no caso, na action create, na warehouses_path) e só faz buscar e imprimir a página passada como parâmetro (no caso, a página gerada pela view new.html.erb)
+    end
+
   end
 end

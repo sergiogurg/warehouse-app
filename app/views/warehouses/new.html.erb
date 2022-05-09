@@ -1,6 +1,6 @@
 <h2>Novo Galpão</h2>
 
-<%= form_with(model: Warehouse.new) do |f| %>
+<%= form_with(model: @warehouse) do |f| %>
   <div>
     <%= f.label :name, 'Nome' %>
     <%= f.text_field :name %>
@@ -37,3 +37,5 @@
     <%= f.submit 'Enviar' %>
   </div>
 <% end %>
+<br>
+<%= link_to('Voltar', root_path) %>
