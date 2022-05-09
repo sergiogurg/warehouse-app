@@ -60,6 +60,26 @@ describe 'Usuário cadastra um galpão' do
     # Assert
     expect(page).to have_content('Galpão não cadastrado.')
 
+    expect(page).to have_content('Nome não pode ficar em branco')
+    expect(page).to have_content('Código não pode ficar em branco')
+    expect(page).to have_content('Cidade não pode ficar em branco')
+    expect(page).to have_content('Área não pode ficar em branco')
+    expect(page).to have_content('Endereço não pode ficar em branco')
+    expect(page).to have_content('CEP não pode ficar em branco')
+    expect(page).to have_content('Descrição não pode ficar em branco')
+    expect(page).to have_content('Estado não pode ficar em branco')
+  end
+
+  it 'com um CEP de formato inválido' do
+    # Arrange
+    
+    # Act
+    visit root_path
+    click_on 'Cadastrar Galpão'
+    fill_in 'CEP', with: '123'
+    click_on 'Enviar'
+    # Assert
+    expect(page).to have_content('formato inválido. CEP: XXXXX-XXX')
   end
 
 end
