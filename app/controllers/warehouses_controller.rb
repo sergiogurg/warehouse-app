@@ -1,8 +1,7 @@
 class WarehousesController < ApplicationController
-  def show
-    id = params[:id]
-    @warehouse = Warehouse.find(id)
-  end
+  before_action :set_warehouse, only: [:show, :edit, :update]
+  
+  def show; end
 
   def new
     @warehouse = Warehouse.new
@@ -12,10 +11,7 @@ class WarehousesController < ApplicationController
     # Aqui dentro nós vamos:
     # 1 - Receber os dados enviados no formulário
     # 2 - Criar um novo galpão no banco de dados
-    warehouse_params = params.require(:warehouse).permit(:name, :description,
-                                                        :code, :address, :city,
-                                                        :state, :postal_code, :area)  # Strong Parameters
-    @warehouse = Warehouse.new(warehouse_params)
+    @warehouse = Warehouse.new(warehouse_params())
 
     if @warehouse.save()
       # 3 - Utilizar flash messages
@@ -30,18 +26,9 @@ class WarehousesController < ApplicationController
     end
   end
 
-  def edit
-    id = params[:id]
-    @warehouse = Warehouse.find(id)
-  end
+  def edit; end
 
   def update
-    id = params[:id]
-    @warehouse = Warehouse.find(id)
-    warehouse_params = params.require(:warehouse).permit(:name, :description,
-                                                         :code, :address, :city,
-                                                         :state, :postal_code, :area)  # Strong Parameters
-
     if @warehouse.update(warehouse_params)
       flash[:notice] = 'Galpão atualizado com sucesso'
       redirect_to warehouse_path(@warehouse.id)
@@ -49,6 +36,20 @@ class WarehousesController < ApplicationController
       flash.now[:notice] = 'Não foi possível atualizar o galpão'
       render 'edit'
     end
+  end
+
+
+  private
+
+
+  def set_warehouse
+    @warehouse = Warehouse.find(params[:id])
+  end
+
+  def warehouse_params
+    params.require(:warehouse).permit(:name, :description,
+                                                         :code, :address, :city,
+                                                         :state, :postal_code, :area)  # Strong Parameters
   end
 
 end
