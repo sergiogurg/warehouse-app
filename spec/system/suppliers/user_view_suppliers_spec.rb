@@ -57,4 +57,16 @@ describe 'Usuário vê fornecedores' do
     expect(page).to have_content('Fornecedores')
     expect(page).to have_content('Não existem fornecedores cadastrados.')
   end
+
+  it 'e volta para a tela inicial' do
+    # Arrange
+
+    # Act
+    visit root_path
+    click_on 'Fornecedores'
+    click_on 'Voltar'
+
+    # Assert
+    expect(current_path).to eq(root_path)
+  end
 end
