@@ -1,4 +1,7 @@
 <h2>Fornecedores</h2>
+
+<%= link_to('Cadastrar Fornecedor', new_supplier_path) %>
+
 <% @suppliers.each do |s| %>
   <p><strong><%= s.brand_name %></strong></p>
   <p> <%= s.city %> - <%= s.state %> </p>
