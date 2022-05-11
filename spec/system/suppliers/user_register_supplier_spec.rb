@@ -20,8 +20,28 @@ describe 'Usuário cadastra fornecedor' do
     expect(page).to have_button('Criar Fornecedor')
   end
 
-  # it 'com sucesso' do
-  # end
+  it 'com sucesso' do
+    # Arrange
+    
+    # Act
+    visit root_path
+    click_on 'Fornecedores'
+    click_on 'Cadastrar Fornecedor'
+    fill_in 'Razão Social', with: 'Beats Bebidas Mistas LTDA'
+    fill_in 'Nome Fantasia', with: 'Beats'
+    fill_in 'CNPJ', with: '612596515755'
+    fill_in 'Cidade', with: 'São Paulo'
+    fill_in 'Estado', with: 'SP'
+    fill_in 'Endereço', with: 'Avenida das Pocs, 616'
+    fill_in 'Email', with: 'sac-loja@beatsoficial.com.br'
+    click_on 'Criar Fornecedor'
+
+    # Assert
+    expect(current_path).to eq(suppliers_path)
+    expect(page).to have_content('Fornecedor cadastrado com sucesso.')
+    expect(page).to have_content('Beats')
+    expect(page).to have_content('São Paulo - SP')
+  end
 
   # it 'com dados incompletos' do
   # end
