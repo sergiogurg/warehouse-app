@@ -29,7 +29,7 @@ describe 'Usuário cadastra fornecedor' do
     click_on 'Cadastrar Fornecedor'
     fill_in 'Razão Social', with: 'Beats Bebidas Mistas LTDA'
     fill_in 'Nome Fantasia', with: 'Beats'
-    fill_in 'CNPJ', with: '612596515755'
+    fill_in 'CNPJ', with: '15427207000203'
     fill_in 'Cidade', with: 'São Paulo'
     fill_in 'Estado', with: 'SP'
     fill_in 'Endereço', with: 'Avenida das Pocs, 616'
@@ -43,6 +43,41 @@ describe 'Usuário cadastra fornecedor' do
     expect(page).to have_content('São Paulo - SP')
   end
 
-  # it 'com dados incompletos' do
-  # end
+  it 'com dados incompletos' do
+    # Arrange
+
+    # Act
+    visit root_path
+    click_on 'Fornecedores'
+    click_on 'Cadastrar Fornecedor'
+    fill_in 'Razão Social', with: ''
+    fill_in 'Nome Fantasia', with: ''
+    fill_in 'CNPJ', with: ''
+    fill_in 'Email', with: ''
+    click_on 'Criar Fornecedor'
+
+    # Assert
+    expect(page).to have_content('Fornecedor não cadastrado.')
+
+    expect(page).to have_content('Razão Social não pode ficar em branco')
+    expect(page).to have_content('Nome Fantasia não pode ficar em branco')
+    expect(page).to have_content('CNPJ não pode ficar em branco')
+    expect(page).to have_content('Email não pode ficar em branco')
+  end
+
+  it 'com CNPJ diferente de 14 dígitos e falha' do
+    # Arrange
+
+    # Act
+    visit root_path
+    click_on 'Fornecedor'
+    click_on 'Cadastrar Fornecedor'
+    fill_in 'CNPJ', with: '123'
+    click_on 'Criar Fornecedor'
+
+    # Assert
+    expect(page).to have_content('CNPJ não é válido')
+
+  end
+
 end

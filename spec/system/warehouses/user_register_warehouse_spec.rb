@@ -79,7 +79,7 @@ describe 'Usuário cadastra um galpão' do
     fill_in 'CEP', with: '123'
     click_on 'Enviar'
     # Assert
-    expect(page).to have_content('formato inválido. CEP: XXXXX-XXX')
+    expect(page).to have_content('CEP não é válido')
   end
 
 end

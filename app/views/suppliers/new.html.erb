@@ -4,14 +4,17 @@
   <div>
     <%= f.label :corporate_name %>
     <%= f.text_field :corporate_name %>
+    <%= @supplier.errors.full_messages_for(:corporate_name)[0] if @supplier.errors.full_messages_for(:corporate_name).any? %>
   </div>
   <div>
     <%= f.label :brand_name %>
     <%= f.text_field :brand_name %>
+    <%= @supplier.errors.full_messages_for(:brand_name)[0] if @supplier.errors.full_messages_for(:brand_name).any? %>
   </div>
   <div>
     <%= f.label :registration_number %>
     <%= f.text_field :registration_number %>
+    <%= @supplier.errors.full_messages_for(:registration_number)[0] if @supplier.errors.full_messages_for(:registration_number).any? %>
   </div>
   <div>
     <%= f.label :city %>
@@ -28,6 +31,7 @@
   <div>
     <%= f.label :email %>
     <%= f.text_field :email %>
+    <%= @supplier.errors.full_messages_for(:email)[0] if @supplier.errors.full_messages_for(:email).any? %>
   </div>
   <div>
     <%= f.submit %>
