@@ -65,7 +65,7 @@ describe 'Usuário cadastra fornecedor' do
     expect(page).to have_content('Email não pode ficar em branco')
   end
 
-  it 'com CNPJ diferente de 14 dígitos e falha' do
+  it 'com CNPJ que não tem 14 dígitos e falha' do
     # Arrange
 
     # Act
