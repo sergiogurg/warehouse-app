@@ -11,10 +11,10 @@
       </tr>
     </thead>
     <tbody>
-      <% @suppliers.each do |s| %>
+      <% @suppliers.each do |supplier| %>
         <tr>
-          <td><%= s.brand_name %></td>
-          <td> <%= s.city %> - <%= s.state %> </td>
+          <td><%= link_to supplier.brand_name, supplier_path(supplier.id) %></td>
+          <td> <%= supplier.city %> - <%= supplier.state %> </td>
         </tr>
       <% end %>
     </tbody>
@@ -22,5 +22,5 @@
 <% else %>
   <p>Não existem fornecedores cadastrados.</p>
 <% end %>
-
+<br>
 <%= link_to('Voltar', root_path) %>

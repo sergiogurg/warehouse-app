@@ -18,7 +18,9 @@ class SuppliersController < ApplicationController
       flash.now[:notice] = 'Fornecedor não cadastrado.'
       render 'new'
     end
-    
   end
 
+  def show
+    @supplier = Supplier.find(params[:id])
+  end
 end
