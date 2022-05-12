@@ -24,7 +24,7 @@ describe 'Usuário vê fornecedores' do
 
     Supplier.create!(corporate_name: 'M Dias Branco S.A. Indústria e Comércio de Alimentos', brand_name: 'Fábrica Fortaleza', registration_number: '07206816000115', address: 'BR 116, km 18', city: 'Eusébio', state: 'CE', email: 'sac@mdiasbranco.com.br')
 
-    Supplier.create!(corporate_name: 'Sanchez Cano LTDA', brand_name: 'The Fini Company Brasil', registration_number: '03594123001168', address: 'Avenida José Benassi, 1503', city: 'Jundiaí', state: 'SP', email: ' sac@finicompany.com')
+    Supplier.create!(corporate_name: 'Sanchez Cano LTDA', brand_name: 'The Fini Company Brasil', registration_number: '03594123001168', address: 'Avenida José Benassi, 1503', city: 'Jundiaí', state: 'SP', email: 'sac@finicompany.com')
 
     # Act
     visit root_path

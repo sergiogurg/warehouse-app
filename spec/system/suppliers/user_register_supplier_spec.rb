@@ -17,7 +17,7 @@ describe 'Usuário cadastra fornecedor' do
     expect(page).to have_field('Estado')
     expect(page).to have_field('Endereço')
     expect(page).to have_field('Email')
-    expect(page).to have_button('Criar Fornecedor')
+    expect(page).to have_button('Enviar')
   end
 
   it 'com sucesso' do
@@ -34,7 +34,7 @@ describe 'Usuário cadastra fornecedor' do
     fill_in 'Estado', with: 'SP'
     fill_in 'Endereço', with: 'Avenida das Pocs, 616'
     fill_in 'Email', with: 'sac-loja@beatsoficial.com.br'
-    click_on 'Criar Fornecedor'
+    click_on 'Enviar'
 
     # Assert
     expect(current_path).to eq(suppliers_path)
@@ -54,7 +54,7 @@ describe 'Usuário cadastra fornecedor' do
     fill_in 'Nome Fantasia', with: ''
     fill_in 'CNPJ', with: ''
     fill_in 'Email', with: ''
-    click_on 'Criar Fornecedor'
+    click_on 'Enviar'
 
     # Assert
     expect(page).to have_content('Fornecedor não cadastrado.')
@@ -73,7 +73,7 @@ describe 'Usuário cadastra fornecedor' do
     click_on 'Fornecedor'
     click_on 'Cadastrar Fornecedor'
     fill_in 'CNPJ', with: '123'
-    click_on 'Criar Fornecedor'
+    click_on 'Enviar'
 
     # Assert
     expect(page).to have_content('CNPJ não é válido')
