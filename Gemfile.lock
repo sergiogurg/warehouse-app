@@ -182,7 +182,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.4.2)
-    strscan (3.0.1)
+    strscan (3.0.3)
     thor (1.2.1)
     timeout (0.2.0)
     tzinfo (2.0.4)
@@ -211,4 +211,4 @@ RUBY VERSION
    ruby 3.1.2p20
 
 BUNDLED WITH
-   2.3.7
+   2.3.13

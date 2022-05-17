@@ -1,0 +1,19 @@
+<h2>Modelos de Produtos</h2>
+<%= link_to 'Cadastrar Novo Modelo de Produto', new_product_model_path %>
+
+<% if @product_models.any? %>
+  <div>
+    <% @product_models.each do |pm| %>
+      <h3><%= link_to pm.name, pm %></h3>
+      <dl>
+        <dt>SKU</dt>
+        <dd><%= pm.sku %></dd>
+        <dt>Fornecedor</dt>
+        <dd><%= pm.supplier.brand_name %></dd>
+      </dl>
+    <% end %>
+  </div>
+<% else %>
+  <p>Nenhum modelo de produto cadastrado.</p>
+<% end %>
+
