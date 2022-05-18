@@ -13,6 +13,7 @@
     <header>
       <h1>Sistema de Galpões e Estoque</h1>
       <nav>
+        <%= link_to 'Home', root_path %> |
         <%= link_to('Fornecedores', suppliers_path) %> |
         <%= link_to 'Modelos de Produtos', product_models_path %> |
         <% if user_signed_in? %>

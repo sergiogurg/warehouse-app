@@ -3,8 +3,10 @@ require 'rails_helper'
 describe 'Usuário cadastra um modelo de produto' do
   it 'a partir do menu inicial' do
     # Arrange
-    
+    user = User.create!(email: 'vittar@yuke.com', password: 'yuke123')
+
     # Act
+    login_as(user)
     visit root_path
     click_on 'Modelos de Produtos'
     click_on 'Cadastrar Novo Modelo de Produto'
@@ -22,10 +24,12 @@ describe 'Usuário cadastra um modelo de produto' do
 
   it 'com sucesso' do
     # Arrange
+    user = User.create!(email: 'vittar@yuke.com', password: 'yuke123')
     Supplier.create!(corporate_name: 'Samsung Eletronicos LTDA', brand_name: 'Samsung', registration_number: '12345678912345', address: 'Avenida das Nações Unidas, 1000', city: 'São Paulo', state: 'SP', email: 'sac@samsung.com.br')
     Supplier.create!(corporate_name: 'Lg Electronics do Brasil LTDA', brand_name: 'LG', registration_number: '01166372000155', address: 'Avenida Dom Pedro I, 7777', city: 'Taubaté', state: 'SP', email: 'contato@lg.com.br')
 
     # Act
+    login_as(user)
     visit root_path
     click_on 'Modelos de Produtos'
     click_on 'Cadastrar Novo Modelo de Produto'
@@ -49,9 +53,11 @@ describe 'Usuário cadastra um modelo de produto' do
 
   it 'e deve preencher todos os campos' do
     # Arrange
+    user = User.create!(email: 'vittar@yuke.com', password: 'yuke123')
     Supplier.create!(corporate_name: 'Samsung Eletronicos LTDA', brand_name: 'Samsung', registration_number: '12345678912345', address: 'Avenida das Nações Unidas, 1000', city: 'São Paulo', state: 'SP', email: 'sac@samsung.com.br')
 
     # Act
+    login_as(user)
     visit root_path
     click_on 'Modelos de Produtos'
     click_on 'Cadastrar Novo Modelo de Produto'
