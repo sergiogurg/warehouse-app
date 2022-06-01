@@ -1,24 +1,5 @@
-# README
+# 🏬📦 Sistema de Galpões 🏬📦
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Ruby](https://badgen.net/badge/icon/ruby?icon=ruby&label)](https://www.ruby-lang.org/pt/)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Status do Projeto <a name='status-do-projeto'></a><h3 style='text-align: center;'> 🚧 Em construção... 🚧</h3>
