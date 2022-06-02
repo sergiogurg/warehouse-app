@@ -30,16 +30,16 @@ describe 'Usuário cadastra um pedido' do
     login_as(user)
     visit root_path
     click_on 'Registrar Pedido'
-    select second_warehouse.name, from: 'Galpão Destino'
+    select 'MCZ => Galpão de Maceió', from: 'Galpão Destino'
     select second_supplier.corporate_name, from: 'Fornecedor'
     fill_in 'Data Prevista', with: '20/12/2022'
     click_on 'Gravar'
 
     # Assert
       expect(page).to have_content('Pedido registrado com sucesso.')
-      expect(page).to have_content('Galpão Destino: Galpão de Maceió')
+      expect(page).to have_content('Galpão Destino: MCZ => Galpão de Maceió')
       expect(page).to have_content('Fornecedor: Fateixa Confeccoes LTDA')
-      expect(page).to have_content('Usuário Responsável: Sergio | sergio@email.com')
+      expect(page).to have_content('Usuário Responsável: Sergio - <sergio@email.com>')
       expect(page).to have_content('Data Prevista de Entrega: 20/12/2022')
       expect(page).not_to have_content('Aeroporto SP')
       expect(page).not_to have_content('M Dias Branco S.A. Indústria e Comércio de Alimentos')
