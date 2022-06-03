@@ -26,6 +26,8 @@ describe 'Usuário cadastra um pedido' do
     first_supplier = Supplier.create!(corporate_name: 'M Dias Branco S.A. Indústria e Comércio de Alimentos', brand_name: 'Fábrica Fortaleza', registration_number: '07206816000115', address: 'BR 116, km 18', city: 'Eusébio', state: 'CE', email: 'sac@mdiasbranco.com.br')
     second_supplier = Supplier.create!(corporate_name: 'Fateixa Confeccoes LTDA', brand_name: 'Estilo Feitiço', registration_number: '23743693000108', address: 'Avenida João Pessoa, 5252', city: 'Fortaleza', state: 'CE', email: 'contato@estilofeitico.com')
 
+    allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('ABC12345')
+
     # Act
     login_as(user)
     visit root_path
@@ -37,6 +39,7 @@ describe 'Usuário cadastra um pedido' do
 
     # Assert
       expect(page).to have_content('Pedido registrado com sucesso.')
+      expect(page).to have_content('Pedido ABC12345')
       expect(page).to have_content('Galpão Destino: MCZ => Galpão de Maceió')
       expect(page).to have_content('Fornecedor: Fateixa Confeccoes LTDA')
       expect(page).to have_content('Usuário Responsável: Sergio - <sergio@email.com>')

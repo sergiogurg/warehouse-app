@@ -14,9 +14,9 @@ describe 'Usuario visita tela inicial' do
 
   it 'e vê os galpões cadastrados' do
     # Arrange
-    Warehouse.create(name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', state: 'RJ', area: 60_000,
+    Warehouse.create!(name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', state: 'RJ', area: 60_000,
                     address: 'Avenida do Porto, 1000', postal_code: '20015-510' , description: 'Galpão do Rio')
-    Warehouse.create(name: 'Maceió', code: 'MCZ', city: 'Maceió', state: 'AL', area: 50_000,
+    Warehouse.create!(name: 'Maceió', code: 'MCZ', city: 'Maceió', state: 'AL', area: 50_000,
                     address: 'Rua do Jacintinho, 75', postal_code: '75195-712', description: 'Galpão do setor industrial')
 
     # Act
