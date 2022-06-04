@@ -3,6 +3,56 @@ require 'rails_helper'
 RSpec.describe Order, type: :model do
 
   describe '#valid?' do
+    it 'data prevista de entrega deve ser obrigatória' do
+      # Arrange
+      order = Order.new(estimated_delivery_date: '')
+
+      # Act
+      order.valid?
+      result = order.errors.include?(:estimated_delivery_date)
+
+      # Assert
+      expect(result).to be(true)
+    end
+
+    it 'data prevista de entrega NÃO deve estar no passado' do
+      # Arrange
+      order = Order.new(estimated_delivery_date: 1.day.ago)
+
+      # Act
+      order.valid?
+      result = order.errors.include?(:estimated_delivery_date)
+
+      # Assert
+      expect(result).to be(true)
+      expect(order.errors[:estimated_delivery_date]).to include(' deve ser futura.')
+    end
+
+    it 'data prevista de entrega NÃO deve ser igual a hoje' do
+      # Arrange
+      order = Order.new(estimated_delivery_date: Date.current)
+
+      # Act
+      order.valid?
+      result = order.errors.include?(:estimated_delivery_date)
+
+      # Assert
+      expect(result).to be(true)
+      expect(order.errors[:estimated_delivery_date]).to include(' deve ser futura.')
+    end
+
+    it 'data prevista de entrega deve ser futura' do
+      # Arrange
+      order = Order.new(estimated_delivery_date: 1.day.from_now)
+
+      # Act
+      order.valid?
+      result = order.errors.include?(:estimated_delivery_date)
+
+      # Assert
+      expect(result).to be(false)
+    end
+
     it 'deve ter um código' do
       # Arrange
       user = User.create!(name: 'Sergio', email: 'sergio@email.com', password: '12345678')
