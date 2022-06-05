@@ -34,8 +34,8 @@ describe 'Usuário se autentica (faz login)' do
       fill_in 'E-mail', with: 'vittar@yuke.com'
       fill_in 'Senha', with: 'yuke123'
       click_on 'Entrar'
-      click_on 'Sair'
     end
+    click_on 'Sair'
 
     # Assert
     expect(page).to have_content('Logout efetuado com sucesso.')

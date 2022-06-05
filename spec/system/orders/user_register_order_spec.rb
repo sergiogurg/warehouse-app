@@ -38,13 +38,38 @@ describe 'Usuário cadastra um pedido' do
     click_on 'Gravar'
 
     # Assert
-      expect(page).to have_content('Pedido registrado com sucesso.')
-      expect(page).to have_content('Pedido ABC12345')
-      expect(page).to have_content('Galpão Destino: MCZ => Galpão de Maceió')
-      expect(page).to have_content('Fornecedor: Fateixa Confeccoes LTDA')
-      expect(page).to have_content('Usuário Responsável: Sergio - <sergio@email.com>')
-      expect(page).to have_content('Data Prevista de Entrega: 20/12/2022')
-      expect(page).not_to have_content('Aeroporto SP')
-      expect(page).not_to have_content('M Dias Branco S.A. Indústria e Comércio de Alimentos')
+    expect(page).to have_content('Pedido registrado com sucesso.')
+    expect(page).to have_content('Pedido ABC12345')
+    expect(page).to have_content('Galpão Destino: MCZ => Galpão de Maceió')
+    expect(page).to have_content('Fornecedor: Fateixa Confeccoes LTDA')
+    expect(page).to have_content('Usuário Responsável: Sergio - <sergio@email.com>')
+    expect(page).to have_content('Data Prevista de Entrega: 20/12/2022')
+    expect(page).not_to have_content('Aeroporto SP')
+    expect(page).not_to have_content('M Dias Branco S.A. Indústria e Comércio de Alimentos')
+  end
+
+  it 'mas não informa a data de entrega' do
+    # Arrange
+    user = User.create!(name: 'Sergio', email: 'sergio@email.com', password: '12345678')
+
+    warehouse = Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', state: 'SP', area: 100_000,
+      address: 'Avenida do Aeroporto, 1000', postal_code: '15000-000',
+      description: 'Galpão destinado a cargas internacionais')
+
+    supplier = Supplier.create!(corporate_name: 'M Dias Branco S.A. Indústria e Comércio de Alimentos', brand_name: 'Fábrica Fortaleza', registration_number: '07206816000115', address: 'BR 116, km 18', city: 'Eusébio', state: 'CE', email: 'sac@mdiasbranco.com.br')
+
+    # Act
+    login_as(user)
+    visit root_path
+    click_on 'Registrar Pedido'
+    select 'GRU => Aeroporto SP', from: 'Galpão Destino'
+    select supplier.corporate_name, from: 'Fornecedor'
+    fill_in 'Data Prevista', with: ''
+    click_on 'Gravar'
+
+
+    # Assert
+    expect(page).to have_content('Não foi possível registrar o pedido.')
+    expect(page).to have_content('Data Prevista de Entrega não pode ficar em branco')
   end
 end

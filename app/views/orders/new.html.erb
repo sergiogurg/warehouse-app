@@ -13,6 +13,7 @@
   <div>
     <%= f.label :estimated_delivery_date %>
     <%= f.date_field :estimated_delivery_date %>
+    <%= @order.errors.full_messages_for(:estimated_delivery_date) if @order.errors.full_messages_for(:estimated_delivery_date).any? %>
   </div>
   <%= f.submit 'Gravar' %>
 <% end %>
