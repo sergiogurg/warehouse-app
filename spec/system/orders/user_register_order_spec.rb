@@ -44,6 +44,7 @@ describe 'Usuário cadastra um pedido' do
     expect(page).to have_content('Fornecedor: Fateixa Confeccoes LTDA')
     expect(page).to have_content('Usuário Responsável: Sergio - <sergio@email.com>')
     expect(page).to have_content('Data Prevista de Entrega: 20/12/2022')
+    expect(page).to have_content('Situação do Pedido: Pendente')
     expect(page).not_to have_content('Aeroporto SP')
     expect(page).not_to have_content('M Dias Branco S.A. Indústria e Comércio de Alimentos')
   end
