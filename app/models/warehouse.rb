@@ -3,6 +3,8 @@ class Warehouse < ApplicationRecord
   validates :name, :code, uniqueness: true
   validates :postal_code, format: { with: /\A[0-9]{5}[-][0-9]{3}\z/ }
 
+  has_many :stock_products
+
   def full_description
     "#{code} => #{name}"
   end
