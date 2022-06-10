@@ -8,7 +8,9 @@ describe 'Usuário informa novo status de pedido' do
       address: 'Avenida do Aeroporto, 1000', postal_code: '15000-000',
       description: 'Galpão destinado a cargas internacionais')
     supplier = Supplier.create!(corporate_name: 'M Dias Branco S.A. Indústria e Comércio de Alimentos', brand_name: 'Fábrica Fortaleza', registration_number: '07206816000115', address: 'BR 116, km 18', city: 'Eusébio', state: 'CE', email: 'sac@mdiasbranco.com.br')
+    product = ProductModel.create!(supplier: supplier, name: 'Cadeira Gamer', weight: 5, length: 70, height: 100, width: 75, sku: 'CAD-GAMER-1234')
     order = Order.create!(user: joao, warehouse: warehouse, supplier: supplier, estimated_delivery_date: 1.day.from_now, status: :pending)
+    OrderItem.create!(order: order, product_model: product, quantity: 5)
 
     # Act
     login_as(joao)
@@ -22,6 +24,9 @@ describe 'Usuário informa novo status de pedido' do
     expect(page).to have_content('Situação do Pedido: Entregue')
     expect(page).not_to have_button('Marcar como ENTREGUE')
     expect(page).not_to have_button('Marcar como CANCELADO')
+    expect(StockProduct.count).to eq(5)
+    estoque = StockProduct.where(product_model: product, warehouse: warehouse).count
+    expect(estoque).to eq(5)
   end
 
   it 'e ele foi cancelado' do
@@ -32,6 +37,8 @@ describe 'Usuário informa novo status de pedido' do
       description: 'Galpão destinado a cargas internacionais')
     supplier = Supplier.create!(corporate_name: 'M Dias Branco S.A. Indústria e Comércio de Alimentos', brand_name: 'Fábrica Fortaleza', registration_number: '07206816000115', address: 'BR 116, km 18', city: 'Eusébio', state: 'CE', email: 'sac@mdiasbranco.com.br')
     order = Order.create!(user: joao, warehouse: warehouse, supplier: supplier, estimated_delivery_date: 1.day.from_now, status: :pending)
+    product = ProductModel.create!(supplier: supplier, name: 'Cadeira Gamer', weight: 5, length: 70, height: 100, width: 75, sku: 'CAD-GAMER-1234')
+    OrderItem.create!(order: order, product_model: product, quantity: 5)
 
     # Act
     login_as(joao)
@@ -45,6 +52,7 @@ describe 'Usuário informa novo status de pedido' do
     expect(page).to have_content('Situação do Pedido: Cancelado')
     expect(page).not_to have_button('Marcar como ENTREGUE')
     expect(page).not_to have_button('Marcar como CANCELADO')
+    expect(StockProduct.count).to eq(0)
   end
 
 end
