@@ -38,4 +38,39 @@ RSpec.describe StockProduct, type: :model do
       expect(stock_product.serial_number).to eq(original_serial_number)
     end
   end
+
+  describe '#available?' do
+    it 'true se nao tiver destino' do
+      # Assert
+      user = User.create!(name: 'Sergio', email: 'sergio@email.com', password: '12345678')
+      warehouse = Warehouse.create!(name: 'Santos Dumont', code: 'SDU', city: 'Rio de Janeiro', state: 'RJ', area: 60_000,
+        address: 'Avenida do Porto, 1000', postal_code: '20015-510' , description: 'Galpão do Rio')
+      supplier = Supplier.create!(corporate_name: 'Beats Bebidas Mistas LTDA', brand_name: 'Beats', registration_number: '15427207000203', address: 'Avenida das Pocs, 616', city: 'São Paulo', state: 'SP', email: 'sac-loja@beatsoficial.com.br')
+      order = Order.create!(user: user, warehouse: warehouse, supplier: supplier, estimated_delivery_date: 1.week.from_now, status: 'delivered')
+      product = ProductModel.create!(supplier: supplier, name: 'Cadeira Gamer', weight: 5, length: 70, height: 100, width: 75, sku: 'CAD-GAMER-1234')
+
+      # Act
+      stock_product = StockProduct.create!(order: order, product_model: product, warehouse: warehouse)
+
+      # Assert
+      expect(stock_product.available?).to eq(true)
+    end
+
+    it 'falso se tiver destino' do
+      # Assert
+      user = User.create!(name: 'Sergio', email: 'sergio@email.com', password: '12345678')
+      warehouse = Warehouse.create!(name: 'Santos Dumont', code: 'SDU', city: 'Rio de Janeiro', state: 'RJ', area: 60_000,
+        address: 'Avenida do Porto, 1000', postal_code: '20015-510' , description: 'Galpão do Rio')
+      supplier = Supplier.create!(corporate_name: 'Beats Bebidas Mistas LTDA', brand_name: 'Beats', registration_number: '15427207000203', address: 'Avenida das Pocs, 616', city: 'São Paulo', state: 'SP', email: 'sac-loja@beatsoficial.com.br')
+      order = Order.create!(user: user, warehouse: warehouse, supplier: supplier, estimated_delivery_date: 1.week.from_now, status: 'delivered')
+      product = ProductModel.create!(supplier: supplier, name: 'Cadeira Gamer', weight: 5, length: 70, height: 100, width: 75, sku: 'CAD-GAMER-1234')
+
+      # Act
+      stock_product = StockProduct.create!(order: order, product_model: product, warehouse: warehouse)
+      stock_product_destination = stock_product.create_stock_product_destination!(address: 'Rua do João 150, Bela Vista, São Paulo - SP', recipient: 'João')
+
+      # Assert
+      expect(stock_product.available?).to eq(false)
+    end
+  end
 end
