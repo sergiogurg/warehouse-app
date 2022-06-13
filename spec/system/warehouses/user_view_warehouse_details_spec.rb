@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Usuário vê detahes de um galpão' do
   it 'e vê informações adicionais' do
     # Arrange
-    Warehouse.create(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', state: 'SP', area: 100_000,
+    Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', state: 'SP', area: 100_000,
                     address: 'Avenida do Aeroporto, 1000', postal_code: '15000-000',
                     description: 'Galpão destinado a cargas internacionais')
     # Act 
